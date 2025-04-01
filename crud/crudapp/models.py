@@ -25,4 +25,5 @@ class Employee(models.Model):
     Notes = models.CharField(max_length=200)
     Country= models.CharField(max_length=50,choices=Countries,default=None)
     Email = models.EmailField(max_length=100,default=None)
+    PhoneNumber = models.CharField(max_length=15,default="")
 
