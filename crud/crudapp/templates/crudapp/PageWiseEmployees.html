@@ -1,7 +1,16 @@
 {% extends 'crudapp/base.html' %}
 {% block title %}Pagination Employee List{% endblock %}
 {%block content%}
-    <center>View All Employess</center>
+    <h2>
+
+        <center>View All Employess</center>
+    </h2>
+
+  <form action="" method="get">
+   <label for="search">Enter the Keyword to Search:</label>
+   <input type="text" name="search" id="search" value="{{search_query}}">
+   <button type="submit" >search</button>
+  </form>
 
     <a href="{% url 'employee_create' %}" class="btn btn-primary mb-3">Add New Employee</a>
 <form id="page-size-form" action="" method="get">

@@ -4,6 +4,7 @@ import json
 from django.db import models
 from django.http import JsonResponse
 from django.core.paginator import Paginator,PageNotAnInteger
+from django.db.models import Q
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
@@ -196,15 +197,25 @@ def PageWiseList(request):
     page_size = int(request.GET.get('page_size',getattr(settings,'PAGE_SIZE',3)))
     page = request.GET.get('page', 1)
 
-    employees = Employee.objects.all()
-    paginator = Paginator(employees,page_size)
+    # employees = Employee.objects.all()
+    search_query  = request.GET.get('search','')
 
+    employees = Employee.objects.filter(
+        # Q(id_icontains=search_query)|
+        Q(FirstName__icontains=search_query)|
+        Q(LastName__icontains = search_query)|
+        Q(Title__icontains = search_query)|
+        Q(Notes__icontains=search_query)|
+        Q(Country__icontains= search_query)
+    ) 
+
+    paginator = Paginator(employees,page_size)
     try:
         employees_page = paginator.page(page)
     except PageNotAnInteger:
         employees_page = paginator.page(1)
 
-    return render(request,'crudapp/PageWiseEmployees.html',{'employees_page':employees_page,'page_size':page_size})
+    return render(request,'crudapp/PageWiseEmployees.html',{'employees_page':employees_page,'page_size':page_size,'search_query':search_query})
 
 
 # agent_confirm view remains largely the same, as it reads from the session
