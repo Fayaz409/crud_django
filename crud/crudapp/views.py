@@ -199,6 +199,14 @@ def PageWiseList(request):
 
     # employees = Employee.objects.all()
     search_query  = request.GET.get('search','')
+    sort_by = request.GET.get('sort_by','id')
+    sort_order = request.GET.get('sort_order','asc')
+    valid_sort_fields = ["id","FirstName","LastName","Title"]
+    if sort_by not in valid_sort_fields:
+        sort_by='id' 
+    
+    
+
 
     employees = Employee.objects.filter(
         # Q(id_icontains=search_query)|
@@ -209,13 +217,19 @@ def PageWiseList(request):
         Q(Country__icontains= search_query)
     ) 
 
+    if sort_order == 'desc':
+        employees = employees.order_by(f"-{sort_by}")
+    else:
+        employees = employees.order_by(sort_by)
+
+
     paginator = Paginator(employees,page_size)
     try:
         employees_page = paginator.page(page)
     except PageNotAnInteger:
         employees_page = paginator.page(1)
 
-    return render(request,'crudapp/PageWiseEmployees.html',{'employees_page':employees_page,'page_size':page_size,'search_query':search_query})
+    return render(request,'crudapp/PageWiseEmployees.html',{'employees_page':employees_page,'page_size':page_size,'search_query':search_query,'sort_by':sort_by,'sort_order':sort_order})
 
 
 # agent_confirm view remains largely the same, as it reads from the session

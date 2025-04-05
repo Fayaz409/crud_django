@@ -24,16 +24,31 @@
     </select>
 
 </form>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Title</th>
-      <th>Country</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
+<table class="table sortable">
+    <thead>
+        <tr>
+          <th>
+            <a href="?sort_by=FirstName&sort_order={% if sort_by == 'FirstName' and sort_order == 'asc' %}desc{% else %}asc{% endif %}&page_size={{ page_size }}&search={{ search_query }}">
+              First Name
+            </a>
+          </th>
+          <th>
+            <a href="?sort_by=LastName&sort_order={% if sort_by == 'LastName' and sort_order == 'asc' %}desc{% else %}asc{% endif %}&page_size={{ page_size }}&search={{ search_query }}">
+              Last Name
+            </a>
+          </th>
+          <th>
+            <a href="?sort_by=Title&sort_order={% if sort_by == 'Title' and sort_order == 'asc' %}desc{% else %}asc{% endif %}&page_size={{ page_size }}&search={{ search_query }}">
+              Title
+            </a>
+          </th>
+          <th>
+            Country
+          </th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      
   <tbody>
     {% for employee in employees_page %}
     <tr>
