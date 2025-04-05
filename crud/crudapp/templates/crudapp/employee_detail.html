@@ -1,0 +1,53 @@
+{% extends 'crudapp/base.html' %}
+{% block title %}Employee Detail{% endblock %}
+{% block content %}
+<h1>Employee Detail</h1>
+<table class="table table-bordered">
+  <tr>
+    <th>First Name</th>
+    <td>{{ employee.FirstName }}</td>
+  </tr>
+  <tr>
+    <th>Last Name</th>
+    <td>{{ employee.LastName }}</td>
+  </tr>
+  <tr>
+    <th>Title</th>
+    <td>{{ employee.Title }}</td>
+  </tr>
+  <tr>
+    <th>Has Passport</th>
+    <td>{{ employee.HasPassport }}</td>
+  </tr>
+  <tr>
+    <th>Salary</th>
+    <td>{{ employee.Salary }}</td>
+  </tr>
+  <tr>
+    <th>Date of Birth</th>
+    <td>{{ employee.DateOfBirth }}</td>
+  </tr>
+  <tr>
+    <th>Hire Date</th>
+    <td>{{ employee.HireDate }}</td>
+  </tr>
+  <tr>
+    <th>Notes</th>
+    <td>{{ employee.Notes }}</td>
+  </tr>
+  <tr>
+    <th>Country</th>
+    <td>{{ employee.Country }}</td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td>{{ employee.Email }}</td>
+  </tr>
+  <tr>
+    <th>Phone Number</th>
+    <td>{{ employee.PhoneNumber }}</td>
+  </tr>
+</table>
+<a href="{% url 'employee_update' employee.pk %}" class="btn btn-warning">Edit</a>
+<a href="{% url 'employee_list' %}" class="btn btn-secondary">Back to List</a>
+{% endblock %}

@@ -1,0 +1,735 @@
+2025-04-04 18:20:30,833 - agent_logger - INFO - Received agent command: 'hello'
+2025-04-04 18:20:30,833 - agent_logger - ERROR - Error processing agent command: GEMINI_API_KEY not found in environment variables or provided.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 35, in __init__
+    raise ValueError("GEMINI_API_KEY not found in environment variables or provided.")
+ValueError: GEMINI_API_KEY not found in environment variables or provided.
+2025-04-04 18:20:57,076 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 18:20:57,077 - agent_logger - ERROR - Error processing agent command: GEMINI_API_KEY not found in environment variables or provided.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 35, in __init__
+    raise ValueError("GEMINI_API_KEY not found in environment variables or provided.")
+ValueError: GEMINI_API_KEY not found in environment variables or provided.
+2025-04-04 18:24:49,603 - agent_logger - INFO - Received agent command: 'create an entry fro me'
+2025-04-04 18:24:49,604 - agent_logger - ERROR - Error processing agent command: GEMINI_API_KEY not found in environment variables or provided.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 35, in __init__
+    raise ValueError("GEMINI_API_KEY not found in environment variables or provided.")
+ValueError: GEMINI_API_KEY not found in environment variables or provided.
+2025-04-04 18:28:15,753 - agent_logger - INFO - Received agent command: 'List all employees.'
+2025-04-04 18:28:15,753 - agent_logger - ERROR - Error processing agent command: GEMINI_API_KEY not found in environment variables or provided.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 35, in __init__
+    raise ValueError("GEMINI_API_KEY not found in environment variables or provided.")
+ValueError: GEMINI_API_KEY not found in environment variables or provided.
+2025-04-04 18:30:13,586 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 18:30:13,628 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 18:30:13,628 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 18:30:13,641 - agent_logger - ERROR - Error invoking agent graph: Message dict must contain 'role' and 'content' keys, got {'role': 'user', 'content': [{'text': 'give me all the employess'}]}
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 331, in _convert_to_message
+    msg_content = msg_kwargs.pop("content") or ""
+                  ~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'content'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 241, in invoke
+    final_state = self.graph.invoke(initial_state, config=config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2688, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2339, in stream
+    while loop.tick(input_keys=self.input_channels):
+          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\loop.py", line 442, in tick
+    mv_writes, updated_channels = apply_writes(
+                                  ~~~~~~~~~~~~^
+        self.checkpoint,
+        ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        self.checkpointer_get_next_version,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\algo.py", line 315, in apply_writes
+    if channels[chan].update(vals) and get_next_version is not None:
+       ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\channels\binop.py", line 90, in update
+    self.value = self.operator(self.value, value)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\graph\message.py", line 38, in _add_messages
+    return func(left, right, **kwargs)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\graph\message.py", line 176, in add_messages
+    for m in convert_to_messages(right)
+             ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 365, in convert_to_messages
+    return [_convert_to_message(m) for m in messages]
+            ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 337, in _convert_to_message
+    raise ValueError(msg) from e
+ValueError: Message dict must contain 'role' and 'content' keys, got {'role': 'user', 'content': [{'text': 'give me all the employess'}]}
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+2025-04-04 18:30:13,653 - agent_logger - INFO - Agent final response text: Agent error: Message dict must contain 'role' and 'content' keys, got {'role': 'user', 'content': [{'text': 'give me all the employess'}]}
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+2025-04-04 18:31:52,920 - agent_logger - INFO - Received agent command: 'create an entry fro me'
+2025-04-04 18:31:52,983 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 18:31:52,983 - agent_logger - INFO - Invoking agent with query: 'create an entry fro me'
+2025-04-04 18:31:52,998 - agent_logger - ERROR - Error calling LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'create an entry fro me'}] additional_kwargs={} response_metadata={} id='aafdd455-492b-444a-9bda-4a820234375d'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 120, in call_llm
+    response = self.model.generate_content(
+        messages_for_llm,
+    ...<2 lines>...
+         ),
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 305, in generate_content
+    request = self._prepare_request(
+        contents=contents,
+    ...<3 lines>...
+        tool_config=tool_config,
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 154, in _prepare_request
+    contents = content_types.to_contents(contents)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 333, in to_contents
+    contents = [to_content(contents)]
+                ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 296, in to_content
+    return protos.Content(parts=[to_part(part) for part in content])
+                                 ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 264, in to_part
+    return protos.Part(inline_data=to_blob(part))
+                                   ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 210, in to_blob
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'create an entry fro me'}] additional_kwargs={} response_metadata={} id='aafdd455-492b-444a-9bda-4a820234375d'
+2025-04-04 18:31:53,002 - agent_logger - ERROR - Error invoking agent graph: Unexpected message type: 'model'. Use one of 'human', 'user', 'ai', 'assistant', 'function', 'tool', 'system', or 'developer'.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 241, in invoke
+    final_state = self.graph.invoke(initial_state, config=config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2688, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2340, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        loop.tasks.values(),
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        get_waiter=get_waiter,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\runner.py", line 158, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<11 lines>...
+        },
+        ^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\utils\runnable.py", line 608, in invoke
+    input = step.invoke(input, config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\utils\runnable.py", line 371, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\graph\branch.py", line 156, in _route
+    value = reader(config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\read.py", line 115, in do_read
+    return read(select, fresh)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\algo.py", line 196, in local_read
+    cc.update(updated[k])
+    ~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\channels\binop.py", line 90, in update
+    self.value = self.operator(self.value, value)
+                 ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\graph\message.py", line 38, in _add_messages
+    return func(left, right, **kwargs)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\graph\message.py", line 176, in add_messages
+    for m in convert_to_messages(right)
+             ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 365, in convert_to_messages
+    return [_convert_to_message(m) for m in messages]
+            ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 338, in _convert_to_message
+    _message = _create_message_from_message_type(
+        msg_type, msg_content, **msg_kwargs
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 290, in _create_message_from_message_type
+    raise ValueError(msg)
+ValueError: Unexpected message type: 'model'. Use one of 'human', 'user', 'ai', 'assistant', 'function', 'tool', 'system', or 'developer'.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+During task with name 'call_llm' and id '8454736e-e712-a1d4-3188-1a834772c327'
+2025-04-04 18:31:53,011 - agent_logger - INFO - Agent final response text: Agent error: Unexpected message type: 'model'. Use one of 'human', 'user', 'ai', 'assistant', 'function', 'tool', 'system', or 'developer'.
+For troubleshooting, visit: https://python.langchain.com/docs/troubleshooting/errors/MESSAGE_COERCION_FAILURE 
+2025-04-04 18:37:33,655 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 18:37:33,698 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 18:37:33,698 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 18:37:33,709 - agent_logger - ERROR - Error calling LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='b895c634-519f-4fd4-a59f-aae3920c4fda'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 120, in call_llm
+    response = self.model.generate_content(
+        messages_for_llm,
+    ...<2 lines>...
+         ),
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 305, in generate_content
+    request = self._prepare_request(
+        contents=contents,
+    ...<3 lines>...
+        tool_config=tool_config,
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 154, in _prepare_request
+    contents = content_types.to_contents(contents)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 333, in to_contents
+    contents = [to_content(contents)]
+                ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 296, in to_content
+    return protos.Content(parts=[to_part(part) for part in content])
+                                 ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 264, in to_part
+    return protos.Part(inline_data=to_blob(part))
+                                   ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 210, in to_blob
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='b895c634-519f-4fd4-a59f-aae3920c4fda'
+2025-04-04 18:37:33,716 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 18:37:33,716 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "Error communicating with LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).\nGot a: <class 'langchain_core.messages.human.HumanMessage'>\nValue: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='b895c634-519f-4fd4-a59f-aae3920c4fda'"}] additional_kwargs={} response_metadata={} id='98ee2d6d-ede7-43ec-b844-80e6b73120cc'
+2025-04-04 19:41:35,940 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:41:35,952 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 19:41:35,952 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 19:41:35,957 - agent_logger - ERROR - Error calling LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='5ddb22d5-2661-407e-b6bc-f4a9b7374b09'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 120, in call_llm
+    response = self.model.generate_content(
+        messages_for_llm,
+    ...<2 lines>...
+         ),
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 305, in generate_content
+    request = self._prepare_request(
+        contents=contents,
+    ...<3 lines>...
+        tool_config=tool_config,
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 154, in _prepare_request
+    contents = content_types.to_contents(contents)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 333, in to_contents
+    contents = [to_content(contents)]
+                ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 296, in to_content
+    return protos.Content(parts=[to_part(part) for part in content])
+                                 ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 264, in to_part
+    return protos.Part(inline_data=to_blob(part))
+                                   ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 210, in to_blob
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='5ddb22d5-2661-407e-b6bc-f4a9b7374b09'
+2025-04-04 19:41:35,960 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 19:41:35,961 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "Error communicating with LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).\nGot a: <class 'langchain_core.messages.human.HumanMessage'>\nValue: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='5ddb22d5-2661-407e-b6bc-f4a9b7374b09'"}] additional_kwargs={} response_metadata={} id='0e3df869-9eaf-4aae-927d-d6fe5e35ff4a'
+2025-04-04 19:44:18,094 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:44:18,122 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 19:44:18,122 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 19:44:18,134 - agent_logger - ERROR - Error calling LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='ee31b5e5-9d96-4992-91c5-1906c273e684'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 120, in call_llm
+    response = self.model.generate_content(
+        messages_for_llm,
+    ...<2 lines>...
+        ),
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 305, in generate_content
+    request = self._prepare_request(
+        contents=contents,
+    ...<3 lines>...
+        tool_config=tool_config,
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 154, in _prepare_request
+    contents = content_types.to_contents(contents)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 333, in to_contents
+    contents = [to_content(contents)]
+                ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 296, in to_content
+    return protos.Content(parts=[to_part(part) for part in content])
+                                 ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 264, in to_part
+    return protos.Part(inline_data=to_blob(part))
+                                   ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 210, in to_blob
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='ee31b5e5-9d96-4992-91c5-1906c273e684'
+2025-04-04 19:44:18,202 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 19:44:18,203 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "Error communicating with LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).\nGot a: <class 'langchain_core.messages.human.HumanMessage'>\nValue: content=[{'text': 'give me all the employess'}] additional_kwargs={} response_metadata={} id='ee31b5e5-9d96-4992-91c5-1906c273e684'"}] additional_kwargs={} response_metadata={} id='474f39ef-57a1-4864-a7b8-be23e719a948'
+2025-04-04 19:44:41,070 - agent_logger - INFO - Received agent command: 'create an entry fro me'
+2025-04-04 19:44:41,101 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 19:44:41,101 - agent_logger - INFO - Invoking agent with query: 'create an entry fro me'
+2025-04-04 19:44:41,114 - agent_logger - ERROR - Error calling LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'create an entry fro me'}] additional_kwargs={} response_metadata={} id='1e3a1475-d01b-4156-8f0f-a8bd18629d47'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 120, in call_llm
+    response = self.model.generate_content(
+        messages_for_llm,
+    ...<2 lines>...
+        ),
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 305, in generate_content
+    request = self._prepare_request(
+        contents=contents,
+    ...<3 lines>...
+        tool_config=tool_config,
+    )
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\generative_models.py", line 154, in _prepare_request
+    contents = content_types.to_contents(contents)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 333, in to_contents
+    contents = [to_content(contents)]
+                ~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 296, in to_content
+    return protos.Content(parts=[to_part(part) for part in content])
+                                 ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 264, in to_part
+    return protos.Part(inline_data=to_blob(part))
+                                   ~~~~~~~^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\generativeai\types\content_types.py", line 210, in to_blob
+    raise TypeError(
+    ...<4 lines>...
+    )
+TypeError: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).
+Got a: <class 'langchain_core.messages.human.HumanMessage'>
+Value: content=[{'text': 'create an entry fro me'}] additional_kwargs={} response_metadata={} id='1e3a1475-d01b-4156-8f0f-a8bd18629d47'
+2025-04-04 19:44:41,119 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 19:44:41,119 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "Error communicating with LLM: Could not create `Blob`, expected `Blob`, `dict` or an `Image` type(`PIL.Image.Image` or `IPython.display.Image`).\nGot a: <class 'langchain_core.messages.human.HumanMessage'>\nValue: content=[{'text': 'create an entry fro me'}] additional_kwargs={} response_metadata={} id='1e3a1475-d01b-4156-8f0f-a8bd18629d47'"}] additional_kwargs={} response_metadata={} id='037ff3c3-03d6-4b94-910a-ce5ede04ded2'
+2025-04-04 19:52:57,742 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:53:11,220 - agent_logger - ERROR - Error processing agent command: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 40, in __init__
+    self.model = ChatGoogleGenerativeAI(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model=self.model_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        # add other parameters as needed...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\load\serializable.py", line 130, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\chat_models.py", line 943, in validate_environment
+    self.client = genaix.build_generative_service(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        credentials=self.credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        transport=transport,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\_genai_extension.py", line 276, in build_generative_service
+    return v1betaGenerativeServiceClient(**config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 696, in __init__
+    self._transport = transport_init(
+                      ~~~~~~~~~~~~~~^
+        credentials=credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        api_audience=self._client_options.api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 235, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        host=host,
+        ^^^^^^^^^^
+    ...<6 lines>...
+        api_audience=api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\base.py", line 100, in __init__
+    credentials, _ = google.auth.default(
+                     ~~~~~~~~~~~~~~~~~~~^
+        **scopes_kwargs, quota_project_id=quota_project_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\auth\_default.py", line 719, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-04-04 19:54:15,684 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:54:29,751 - agent_logger - ERROR - Error processing agent command: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 41, in __init__
+    self.model = ChatGoogleGenerativeAI(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model=self.model_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        # add other parameters as needed...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\load\serializable.py", line 130, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\chat_models.py", line 943, in validate_environment
+    self.client = genaix.build_generative_service(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        credentials=self.credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        transport=transport,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\_genai_extension.py", line 276, in build_generative_service
+    return v1betaGenerativeServiceClient(**config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 696, in __init__
+    self._transport = transport_init(
+                      ~~~~~~~~~~~~~~^
+        credentials=credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        api_audience=self._client_options.api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 235, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        host=host,
+        ^^^^^^^^^^
+    ...<6 lines>...
+        api_audience=api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\base.py", line 100, in __init__
+    credentials, _ = google.auth.default(
+                     ~~~~~~~~~~~~~~~~~~~^
+        **scopes_kwargs, quota_project_id=quota_project_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\auth\_default.py", line 719, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-04-04 19:56:58,109 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:57:10,103 - agent_logger - ERROR - Error processing agent command: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 41, in __init__
+    self.model = ChatGoogleGenerativeAI(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model=self.model_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        # add other parameters as needed...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\load\serializable.py", line 130, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\chat_models.py", line 943, in validate_environment
+    self.client = genaix.build_generative_service(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        credentials=self.credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        transport=transport,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\_genai_extension.py", line 276, in build_generative_service
+    return v1betaGenerativeServiceClient(**config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 696, in __init__
+    self._transport = transport_init(
+                      ~~~~~~~~~~~~~~^
+        credentials=credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        api_audience=self._client_options.api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 235, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        host=host,
+        ^^^^^^^^^^
+    ...<6 lines>...
+        api_audience=api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\base.py", line 100, in __init__
+    credentials, _ = google.auth.default(
+                     ~~~~~~~~~~~~~~~~~~~^
+        **scopes_kwargs, quota_project_id=quota_project_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\auth\_default.py", line 719, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-04-04 19:57:46,819 - agent_logger - INFO - Received agent command: ''
+2025-04-04 19:57:50,629 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 19:58:04,398 - agent_logger - ERROR - Error processing agent command: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\views.py", line 84, in agent_command
+    agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 41, in __init__
+    self.model = ChatGoogleGenerativeAI(
+                 ~~~~~~~~~~~~~~~~~~~~~~^
+        model=self.model_name,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        # add other parameters as needed...
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\load\serializable.py", line 130, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\chat_models.py", line 943, in validate_environment
+    self.client = genaix.build_generative_service(
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        credentials=self.credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        transport=transport,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\_genai_extension.py", line 276, in build_generative_service
+    return v1betaGenerativeServiceClient(**config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 696, in __init__
+    self._transport = transport_init(
+                      ~~~~~~~~~~~~~~^
+        credentials=credentials,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<7 lines>...
+        api_audience=self._client_options.api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\grpc.py", line 235, in __init__
+    super().__init__(
+    ~~~~~~~~~~~~~~~~^
+        host=host,
+        ^^^^^^^^^^
+    ...<6 lines>...
+        api_audience=api_audience,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\transports\base.py", line 100, in __init__
+    credentials, _ = google.auth.default(
+                     ~~~~~~~~~~~~~~~~~~~^
+        **scopes_kwargs, quota_project_id=quota_project_id
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\google\auth\_default.py", line 719, in default
+    raise exceptions.DefaultCredentialsError(_CLOUD_SDK_MISSING_CREDENTIALS)
+google.auth.exceptions.DefaultCredentialsError: Your default credentials were not found. To set up Application Default Credentials, see https://cloud.google.com/docs/authentication/external/set-up-adc for more information.
+2025-04-04 20:01:30,248 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:01:31,675 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:01:31,675 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:01:31,684 - agent_logger - ERROR - Error invoking agent graph: 'SystemMessage' object has no attribute 'get'
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 225, in invoke
+    final_state = self.graph.invoke(initial_state, config=config)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2688, in invoke
+    for chunk in self.stream(
+                 ~~~~~~~~~~~^
+        input,
+        ^^^^^^
+    ...<6 lines>...
+        **kwargs,
+        ^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\__init__.py", line 2340, in stream
+    for _ in runner.tick(
+             ~~~~~~~~~~~^
+        loop.tasks.values(),
+        ^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        get_waiter=get_waiter,
+        ^^^^^^^^^^^^^^^^^^^^^^
+    ):
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\runner.py", line 158, in tick
+    run_with_retry(
+    ~~~~~~~~~~~~~~^
+        t,
+        ^^
+    ...<11 lines>...
+        },
+        ^^
+    )
+    ^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\pregel\retry.py", line 40, in run_with_retry
+    return task.proc.invoke(task.input, config)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\utils\runnable.py", line 606, in invoke
+    input = step.invoke(input, config, **kwargs)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langgraph\utils\runnable.py", line 371, in invoke
+    ret = context.run(self.func, *args, **kwargs)
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 124, in call_llm
+    role = msg.get("role", "human")
+           ^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 994, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'SystemMessage' object has no attribute 'get'
+During task with name 'call_llm' and id '1bbf998e-b206-895f-8d8f-3d03c6626582'
+2025-04-04 20:01:31,744 - agent_logger - INFO - Agent final response text: Agent error: 'SystemMessage' object has no attribute 'get'
+2025-04-04 20:06:34,543 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:06:36,371 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:06:36,371 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:06:36,378 - agent_logger - ERROR - Error calling LLM: 2 validation errors for SystemMessage
+content.str
+  Input should be a valid string [type=string_type, input_value={'text': 'You are a helpf...this employee record."'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+content.list[union[str,dict[any,any]]]
+  Input should be a valid list [type=list_type, input_value={'text': 'You are a helpf...this employee record."'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/list_type
+Traceback (most recent call last):
+  File "C:\Users\ad\Documents\Database\crud\crudapp\llm_agent.py", line 141, in call_llm
+    ai_msg = self.model.invoke(converted_messages)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_google_genai\chat_models.py", line 1022, in invoke
+    return super().invoke(input, config, stop=stop, **kwargs)
+           ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\language_models\chat_models.py", line 311, in invoke
+    [self._convert_input(input)],
+     ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\language_models\chat_models.py", line 290, in _convert_input
+    return ChatPromptValue(messages=convert_to_messages(input))
+                                    ~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 365, in convert_to_messages
+    return [_convert_to_message(m) for m in messages]
+            ~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 322, in _convert_to_message
+    _message = _create_message_from_message_type(message_type_str, template)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\utils.py", line 276, in _create_message_from_message_type
+    message = SystemMessage(content=content, **kwargs)
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\system.py", line 46, in __init__
+    super().__init__(content=content, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\messages\base.py", line 79, in __init__
+    super().__init__(content=content, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\langchain_core\load\serializable.py", line 130, in __init__
+    super().__init__(*args, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\ad\Documents\Database\database\Lib\site-packages\pydantic\main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+pydantic_core._pydantic_core.ValidationError: 2 validation errors for SystemMessage
+content.str
+  Input should be a valid string [type=string_type, input_value={'text': 'You are a helpf...this employee record."'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/string_type
+content.list[union[str,dict[any,any]]]
+  Input should be a valid list [type=list_type, input_value={'text': 'You are a helpf...this employee record."'}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.11/v/list_type
+2025-04-04 20:06:36,394 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:06:36,394 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': 'Error communicating with LLM: 2 validation errors for SystemMessage\ncontent.str\n  Input should be a valid string [type=string_type, input_value={\'text\': \'You are a helpf...this employee record."\'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/string_type\ncontent.list[union[str,dict[any,any]]]\n  Input should be a valid list [type=list_type, input_value={\'text\': \'You are a helpf...this employee record."\'}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.11/v/list_type'}] additional_kwargs={} response_metadata={} id='72a47f13-d4e0-4527-add8-4091d43d2424'
+2025-04-04 20:10:03,803 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:10:05,069 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:10:05,069 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:10:06,895 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:10:06,896 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='```tool_code\\nprint(list_employees())\\n```' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-a17c2e6d-aaf1-4780-babd-b09941745e9d-0' usage_metadata={'input_tokens': 637, 'output_tokens': 13, 'total_tokens': 650, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='f63beffe-913d-41a5-957b-7cbb1843169f'
+2025-04-04 20:13:52,688 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:13:52,948 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:13:53,988 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:13:53,989 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:13:53,997 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:13:53,998 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:13:55,404 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:13:55,405 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='```tool_code\\nprint(list_employees())\\n```' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-042f0531-963d-4ea8-9359-2677d851618d-0' usage_metadata={'input_tokens': 610, 'output_tokens': 13, 'total_tokens': 623, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='f740f707-3fe1-496a-83b5-f8e65e349a82'
+2025-04-04 20:13:55,590 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:13:55,591 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='```tool_code\\nprint(list_employees())\\n```' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-1d349636-aa01-41c8-b04b-f6655d09d5f1-0' usage_metadata={'input_tokens': 610, 'output_tokens': 13, 'total_tokens': 623, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='50818466-43c3-4136-9ca0-7dd670432847'
+2025-04-04 20:14:00,771 - agent_logger - INFO - Received agent command: 'create an entry fro me'
+2025-04-04 20:14:00,811 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:14:00,811 - agent_logger - INFO - Invoking agent with query: 'create an entry fro me'
+2025-04-04 20:14:02,270 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:14:02,271 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='Okay, I can help with that. Could you please provide the details for the new employee, including:\\n\\n*   FirstName\\n*   LastName\\n*   Title\\n*   HasPassport (true/false)\\n*   Salary\\n*   DateOfBirth (YYYY-MM-DD)\\n*   HireDate (YYYY-MM-DD)\\n*   Notes\\n*   Country (India, USA, UK, Germany, France, Italy, Spain, Japan, China, Russia)\\n*   Email\\n*   PhoneNumber' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-a62d40d5-0b69-4745-a8cd-3e729d2e6089-0' usage_metadata={'input_tokens': 609, 'output_tokens': 109, 'total_tokens': 718, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='6437ffd1-0b3e-4e6d-9062-2ebf0bebb1c7'
+2025-04-04 20:16:15,790 - agent_logger - INFO - Received agent command: 'give me all the employess'
+2025-04-04 20:16:16,862 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:16:16,862 - agent_logger - INFO - Invoking agent with query: 'give me all the employess'
+2025-04-04 20:16:18,507 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:16:18,507 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='```tool_code\\nprint(list_employees())\\n```' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-9b0805e2-2681-4100-bd2e-f5c0ebc2a87a-0' usage_metadata={'input_tokens': 637, 'output_tokens': 13, 'total_tokens': 650, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='a0b722d6-40e2-4ebd-a7bf-f340e0cb6071'
+2025-04-04 20:16:51,801 - agent_logger - INFO - Received agent command: 'hello'
+2025-04-04 20:16:51,828 - agent_logger - INFO - LangGraph agent compiled.
+2025-04-04 20:16:51,828 - agent_logger - INFO - Invoking agent with query: 'hello'
+2025-04-04 20:16:53,293 - agent_logger - INFO - Agent invocation finished.
+2025-04-04 20:16:53,294 - agent_logger - INFO - Agent final response text: Could not extract final response. Last message: content=[{'text': "content='Hello! How can I help you manage employee records today? You can ask me to create, update, delete, or list employees.' additional_kwargs={} response_metadata={'prompt_feedback': {'block_reason': 0, 'safety_ratings': []}, 'finish_reason': 'STOP', 'model_name': 'gemini-2.0-flash', 'safety_ratings': []} id='run-d3ff3844-8843-407a-86d4-61c970309a7f-0' usage_metadata={'input_tokens': 632, 'output_tokens': 28, 'total_tokens': 660, 'input_token_details': {'cache_read': 0}}"}] additional_kwargs={} response_metadata={} id='873b3bcb-f70a-4264-b089-7c8577a4c397'

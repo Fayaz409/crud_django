@@ -1,0 +1,11 @@
+{% extends 'crudapp/base.html' %}
+{% block title %}Employee Form{% endblock %}
+{% block content %}
+<h1>{% if form.instance.pk %}Edit Employee{% else %}Add New Employee{% endif %}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-primary">{% if form.instance.pk %}Update{% else %}Create{% endif %}</button>
+  <a href="{% url 'employee_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
