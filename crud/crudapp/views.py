@@ -12,8 +12,8 @@ from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.conf import settings # To get API key if stored there
 
-from .models import Employee
-from .forms import EmployeeForm
+from .models import City, Employee, State
+from .forms import EmployeeForm, OnSiteEmloyeesForm
 # Remove the old agent import:
 # from .agent import process_agent_command
 from .llm_agent import DjangoCrudAgent, AgentState # Import the new agent
@@ -213,8 +213,8 @@ def PageWiseList(request):
         Q(FirstName__icontains=search_query)|
         Q(LastName__icontains = search_query)|
         Q(Title__icontains = search_query)|
-        Q(Notes__icontains=search_query)|
-        Q(Country__icontains= search_query)
+        Q(Notes__icontains=search_query)
+        # Q(Country__icontains= search_query)
     ) 
 
     if sort_order == 'desc':
@@ -230,6 +230,29 @@ def PageWiseList(request):
         employees_page = paginator.page(1)
 
     return render(request,'crudapp/PageWiseEmployees.html',{'employees_page':employees_page,'page_size':page_size,'search_query':search_query,'sort_by':sort_by,'sort_order':sort_order})
+
+
+def cascadingSelect(request):
+    emp_form = OnSiteEmloyeesForm()
+
+    if request.method == 'POST':
+        emp_form = OnSiteEmloyeesForm(request.POST)
+        print('Employee Form',emp_form)
+        if emp_form.is_valid():
+            emp_form.save()
+            return JsonResponse({'success':True})
+    return render(request,'crudapp/CascadingDemo.html',{'employee_form':emp_form})
+def load_states(request):
+    country_id = request.GET.get('country_id')
+    states = State.objects.filter(country_id=country_id).values('id','name')
+    return JsonResponse(list(states),safe=False)
+
+def load_cities(request):
+    state_id = request.GET.get('state_id')
+    cities = City.objects.filter(state_id=state_id).values('id','name')
+    return JsonResponse(list(cities),safe=False)
+
+
 
 
 # agent_confirm view remains largely the same, as it reads from the session
