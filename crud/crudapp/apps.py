@@ -1,6 +1,6 @@
-from django.apps import AppConfig
+from djan.apps import AppConfig
 
 
 class CrudappConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
+    default_auto_field = 'djan.db.models.BigAutoField'
     name = 'crudapp'

@@ -1,5 +1,5 @@
 # crudapp/urls.py
-from django.urls import path
+from djan.urls import path
 from . import views
 
 urlpatterns = [
@@ -8,6 +8,11 @@ urlpatterns = [
     path('employee/new/', views.employee_create, name='employee_create'),
     path('employee/<int:pk>/edit/', views.employee_update, name='employee_update'),
     path('employee/<int:pk>/delete/', views.employee_delete, name='employee_delete'),
+    path('cascadingSelect/',views.cascadingSelect,name='cascadingSelect'),
+    path('load_states/',views.load_states,name='load_states'),
+    path('load_cities/',views.load_cities,name='load_cities'),
+    path('TransectionDemo/',views.TransectionDemo,name='TransectionDemo'),
+
 
     # Agent URLs
     path('agent/command/', views.agent_command, name='agent_command'),

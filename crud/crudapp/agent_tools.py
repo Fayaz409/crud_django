@@ -1,10 +1,10 @@
 # crudapp/agent_tools.py
 from typing import List, Dict, Any, Optional, Union
-from pydantic import BaseModel, Field # Using pydantic for tool input/output definition (optional but good practice)
+from pydantic import BaseModel, Field # Using pydantic for tool input/output definition (optional but od practice)
 from .models import Employee
 from .forms import EmployeeForm # To leverage validation if needed
 from .agent_logger import agent_logger
-from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned, ValidationError
+from djan.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned, ValidationError
 
 # --- Pydantic Models for Tool Inputs/Outputs (Optional but Recommended) ---
 
@@ -104,7 +104,7 @@ def list_employees() -> Dict[str, Any]:
 # Note: The actual CUD operations are NOT defined as tools here.
 # The LLM's role is to understand the intent, gather necessary info (like PK using find_employee),
 # and prepare the data. The final execution (create, update, delete) happens in the
-# Django view *after* user confirmation, directly calling ORM methods.
+# Djan view *after* user confirmation, directly calling ORM methods.
 # This avoids needing the LLM to manage the confirmation state.
 
 # If you wanted the LLM to *execute* the changes (less recommended due to confirmation complexity):

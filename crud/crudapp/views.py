@@ -1,23 +1,24 @@
 # crudapp/views.py
 import re
 import json
-from django.db import models
-from django.http import JsonResponse
-from django.core.paginator import Paginator,PageNotAnInteger
-from django.db.models import Q
-
-from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
-from django.core.exceptions import ValidationError
-from django.contrib import messages
-from django.conf import settings # To get API key if stored there
+from djan.db import models
+from djan.http import JsonResponse
+from djan.core.paginator import Paginator,PageNotAnInteger
+from djan.db.models import Q
+from djan.db import transaction
+from djan.shortcuts import render, redirect, get_object_or_404
+from djan.urls import reverse
+from djan.core.exceptions import ValidationError
+from djan.contrib import messages
+from djan.conf import settings # To get API key if stored there
 
 from .models import City, Employee, State
 from .forms import EmployeeForm, OnSiteEmloyeesForm
 # Remove the old agent import:
 # from .agent import process_agent_command
-from .llm_agent import DjangoCrudAgent, AgentState # Import the new agent
+from .llm_agent import DjanCrudAgent, AgentState # Import the new agent
 from .agent_logger import agent_logger
+from datetime import date
 # Import tool functions ONLY for direct execution after confirmation
 from .agent_tools import EmployeeData # Use Pydantic model for validation
 
@@ -83,7 +84,7 @@ def agent_command(request):
         try:
             # Instantiate the agent (consider caching or making it a singleton if performance is critical)
             # Pass API key from settings if configured there
-            agent = DjangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+            agent = DjanCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
 
             # Invoke the agent
             final_state = agent.invoke(command)
@@ -253,6 +254,92 @@ def load_cities(request):
     return JsonResponse(list(cities),safe=False)
 
 
+from djan.db import transaction
+from djan.shortcuts import render
+from datetime import date
+from .models import Employee, Country, Department
+
+def TransectionDemo(request):
+    try:
+        # Retrieve or assume the country and department objects exist
+        # For example, getting the 'India' Country and 'HR' Department
+        country_india = Country.objects.get(name='India')
+        dept_hr = Department.objects.get(department='HR')
+        
+        with transaction.atomic():
+            Employee.objects.create(
+                FirstName='Qadir',
+                LastName='Tunio',
+                Title='Head Chief',
+                HasPassport=True,
+                Salary=12000,
+                DateOfBirth=date(1980, 1, 1),
+                HireDate=date(2010, 1, 1),
+                Notes='Is top Notch for this work!',
+                Email='qadir@gmail.com',
+                PhoneNumber='03030030303',
+                EmpCountry=country_india,
+                EmpDept=dept_hr
+            )
+            Employee.objects.create(
+                FirstName='John',
+                LastName='Doe',
+                Title='Software Engineer',
+                HasPassport=False,
+                Salary=8000,
+                DateOfBirth=date(1990, 3, 15),
+                HireDate=date(2015, 7, 1),
+                Notes='od team player',
+                Email='john.doe@example.com',
+                PhoneNumber='1234567890',
+                EmpCountry=country_india,
+                EmpDept=Department.objects.get(department='IT')
+            )
+            Employee.objects.create(
+                FirstName='Jane',
+                LastName='Doe',
+                Title='Project Manager',
+                HasPassport=True,
+                Salary=15000,
+                DateOfBirth=date(1985, 5, 20),
+                HireDate=date(2012, 6, 15),
+                Notes='Excellent leadership skills',
+                Email='jane.doe@example.com',
+                PhoneNumber='0987654321',
+                EmpCountry=country_india,
+                EmpDept=dept_hr
+            )
+            Employee.objects.create(
+                FirstName='Alice',
+                LastName='Smith',
+                Title='Business Analyst',
+                HasPassport=False,
+                Salary=9000,
+                DateOfBirth=date(1992, 8, 30),
+                HireDate=date(2018, 9, 10),
+                Notes='Analytical and detail-oriented',
+                Email='alice.smith@example.com',
+                PhoneNumber='5551234567',
+                EmpCountry=country_india,
+                EmpDept=dept_hr
+            )
+            Employee.objects.create(
+                Firstname='Bob',
+                LastName='Johnson',
+                Title='HR Specialist',
+                HasPassport=True,
+                Salary=7000,
+                DateOfBirth=date(1988, 12, 12),
+                HireDate=date(2014, 4, 1),
+                Notes='Expert in recruitment',
+                Email='bob.johnson@example.com',
+                PhoneNumber='4445556666',
+                EmpCountry=country_india,
+                EmpDept=dept_hr
+            )
+    except Exception as e:
+        return render(request, 'crudapp/TransectionDemo.html', {'message': str(e)})
+    return render(request, 'crudapp/TransectionDemo.html', {'message': 'Success!'})
 
 
 # agent_confirm view remains largely the same, as it reads from the session
@@ -347,11 +434,11 @@ def agent_execute(request):
             if agent_action == 'create':
                 # agent_data is the dictionary of fields prepared by LLM
                 agent_logger.info(f"Agent EXECUTE: Creating employee with data: {agent_data}")
-                # Validate data using Pydantic model or Django Form
+                # Validate data using Pydantic model or Djan Form
                 try:
                     # Use Pydantic for validation before creating
                     # validated_data = EmployeeData(**agent_data).model_dump(exclude_unset=True) # exclude_unset avoids passing None for non-provided fields
-                    # Or use Django Form
+                    # Or use Djan Form
                     form = EmployeeForm(agent_data)
                     if form.is_valid():
                          employee = form.save()
@@ -362,7 +449,7 @@ def agent_execute(request):
                          messages.error(request, error_msg)
                          agent_logger.error(f"Agent EXECUTE: Create validation failed. Data: {agent_data}. Errors: {form.errors.as_json()}")
 
-                except ValidationError as e: # Catch Pydantic or Django validation errors
+                except ValidationError as e: # Catch Pydantic or Djan validation errors
                      error_msg = f"Agent failed to create employee due to validation errors: {e}"
                      messages.error(request, error_msg)
                      agent_logger.error(f"Agent EXECUTE: Create validation failed. Data: {agent_data}. Error: {e}")

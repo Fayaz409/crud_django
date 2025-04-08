@@ -1,5 +1,5 @@
-from django import forms
-from django.forms import Select, TextInput
+from djan import forms
+from djan.forms import Select, TextInput
 from .models import Employee,OnSiteEmployees
 
 class EmployeeForm(forms.ModelForm):

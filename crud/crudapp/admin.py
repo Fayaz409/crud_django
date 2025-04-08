@@ -1,4 +1,4 @@
-from django.contrib import admin
+from djan.contrib import admin
 
 # Register your models here.
 from .models import Employee,Country,Department,State,City,OnSiteEmployees

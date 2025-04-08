@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cascading Demo</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Cascading Select Box</h1>
+        <form action="" method="post" id="employeeForm">
+        {% csrf_token %}
+        {{employee_form.as_p}}
+        <button class="btn" type="submit">Submit</button>
+        </form>
+
+    </div>
+    <script src="https://ajax.ogleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <script>
+        $(document).ready( function (){
+            $('#id_state').empty();
+            $('#id_city').empty();
+
+            $('#id_country').change(function(){
+                var countryId = $(this).val();
+                $.ajax({
+                url: "{% url 'load_states' %}",
+                data: { 'country_id': countryId },
+                dataType: 'json',
+                success: function (data) {
+                    var stateSelect = $('#id_state');
+                    stateSelect.empty();
+                    $.each(data, function (key, value) {
+                    stateSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                    stateSelect.change();
+                }
+                });
+            })
+            $('#id_state').change(function(){
+                var stateId = $(this).val();
+                $.ajax({
+                url: "{% url 'load_cities' %}",
+                data: { 'state_id': stateId },
+                dataType: 'json',
+                success: function (data) {
+                    var stateSelect = $('#id_city');
+                    stateSelect.empty();
+                    $.each(data, function (key, value) {
+                    stateSelect.append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                    // stateSelect.change();
+                }
+                });
+            })
+
+        }
+
+        )
+    </script>
+</body>
+</html>

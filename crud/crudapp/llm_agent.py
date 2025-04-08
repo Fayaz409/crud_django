@@ -11,10 +11,10 @@ from langgraph.graph import END, START, StateGraph
 from langgraph.graph.message import add_messages  # Manages adding messages to the state
 from pydantic import BaseModel, Field
 
-# Remove google.generativeai imports; we now use ChatGoogleGenerativeAI
-#from google.generativeai.types import Tool, FunctionDeclaration
-#from google.generativeai.types import RequestOptions
-#from google.api_core import retry
+# Remove ogle.generativeai imports; we now use ChatogleGenerativeAI
+#from ogle.generativeai.types import Tool, FunctionDeclaration
+#from ogle.generativeai.types import RequestOptions
+#from ogle.api_core import retry
 
 # Import tools and ToolResult model
 from .agent_tools import find_employee, list_employees, ToolResult
@@ -29,7 +29,7 @@ class AgentState(TypedDict):
     messages: Annotated[List[Dict[str, Any]], add_messages]
 
 # --- Agent Class ---
-class DjangoCrudAgent:
+class DjanCrudAgent:
     def __init__(self, model_name="models/gemini-2.0-flash", api_key=None):
         self.model_name = model_name
         self.api_key = api_key or os.getenv("GEMINI_API_KEY")
@@ -37,9 +37,9 @@ class DjangoCrudAgent:
         if not self.api_key:
             raise ValueError("GEMINI_API_KEY not found in environment variables or provided.")
 
-        # Instead of using google.generativeai, we now use ChatGoogleGenerativeAI.
-        from langchain_google_genai import ChatGoogleGenerativeAI
-        self.model = ChatGoogleGenerativeAI(
+        # Instead of using ogle.generativeai, we now use ChatogleGenerativeAI.
+        from langchain_ogle_genai import ChatogleGenerativeAI
+        self.model = ChatogleGenerativeAI(
             api_key=self.api_key,
             model=self.model_name,
             temperature=0,
@@ -60,7 +60,7 @@ class DjangoCrudAgent:
         countries_str = ", ".join([c[0] for c in Employee.Countries])
 
         self.system_prompt = (
-            f"You are a helpful assistant for managing Employee records in a Django application database.\n"
+            f"You are a helpful assistant for managing Employee records in a Djan application database.\n"
             f"The Employee model has the following fields: {employee_fields_str}.\n"
             f"The 'Country' field accepts one of the following values: {countries_str}.\n"
             "Dates (DateOfBirth, HireDate) should be in YYYY-MM-DD format.\n"
@@ -117,7 +117,7 @@ class DjangoCrudAgent:
         return graph
 
     def call_llm(self, state: AgentState):
-        """Invokes the LLM with the current state using ChatGoogleGenerativeAI."""
+        """Invokes the LLM with the current state using ChatogleGenerativeAI."""
         agent_logger.debug(f"Calling LLM. Current messages: {state['messages']}")
         # Convert agent messages (list of message objects) into a list of tuples (role, text)
         converted_messages = []
@@ -138,7 +138,7 @@ class DjangoCrudAgent:
         try:
             # Invoke the LLM with the prepared messages.
             ai_msg = self.model.invoke(converted_messages)
-            # The response from ChatGoogleGenerativeAI is expected to be a string.
+            # The response from ChatogleGenerativeAI is expected to be a string.
             response_content = {"role": "ai", "content": [{"text": str(ai_msg)}]}
             agent_logger.debug(f"LLM raw response: {response_content}")
             return {"messages": [response_content]}
