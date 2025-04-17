@@ -257,33 +257,39 @@ def load_cities(request):
     cities = City.objects.filter(state_id=state_id).values('id','name')
     return JsonResponse(list(cities),safe=False)
 
-query = '''
-SELECT 
-    e.FirstName   AS FirstName,
-    e.LastName    AS LastName,
-    e.PhoneNumber AS `Phone Number`,
-    d.department  AS Department,
-    co.name AS Country
-FROM crudapp_employee e
-INNER JOIN crudapp_department d 
-    ON e.EmpDept_id = d.id
-INNER JOIN crudapp_country co 
-    ON e.Empcountry_id = co.id
+# query = '''
+# SELECT 
+#     e.FirstName   AS FirstName,
+#     e.LastName    AS LastName,
+#     e.PhoneNumber AS `Phone Number`,
+#     d.department  AS Department,
+#     co.name AS Country
+# FROM crudapp_employee e
+# INNER JOIN crudapp_department d 
+#     ON e.EmpDept_id = d.id
+# INNER JOIN crudapp_country co 
+#     ON e.Empcountry_id = co.id
 
-'''
+# '''
+# # from django.shortcuts import render
+
+# from django.db import connection
 # from django.shortcuts import render
 
-from django.db import connection
-from django.shortcuts import render
+# def RawSqlDemo(request):
+#     with connection.cursor() as cursor:
+#         cursor.execute(query)
+#         employees = cursor.fetchall()
+#         # print('Employees',employees)
+#     return render(request, "crudapp/ShowEmployees.html", {"Employees": employees})
 
-def RawSqlDemo(request):
+def show_employees(request):
     with connection.cursor() as cursor:
-        cursor.execute(query)
+        # Call the stored procedure (no args needed)
+        cursor.callproc('get_emp_data', [])
+        # Fetch all rows returned by the procedure
         employees = cursor.fetchall()
-        print('Employees',employees)
     return render(request, "crudapp/ShowEmployees.html", {"Employees": employees})
-
-
 
 
 
