@@ -1,22 +1,26 @@
 # crudapp/views.py
 import re
+
+from django.db import connection
 import json
-from djan.db import models
-from djan.http import JsonResponse
-from djan.core.paginator import Paginator,PageNotAnInteger
-from djan.db.models import Q
-from djan.db import transaction
-from djan.shortcuts import render, redirect, get_object_or_404
-from djan.urls import reverse
-from djan.core.exceptions import ValidationError
-from djan.contrib import messages
-from djan.conf import settings # To get API key if stored there
+from django.shortcuts import render
+import mysql.connector  # Or pymysql
+from django.db import models
+from django.http import JsonResponse
+from django.core.paginator import Paginator,PageNotAnInteger
+from django.db.models import Q
+from django.db import transaction
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
+from django.core.exceptions import ValidationError
+from django.contrib import messages
+from django.conf import settings # To get API key if stored there
 
 from .models import City, Employee, State
 from .forms import EmployeeForm, OnSiteEmloyeesForm
 # Remove the old agent import:
 # from .agent import process_agent_command
-from .llm_agent import DjanCrudAgent, AgentState # Import the new agent
+from .llm_agent import djangoCrudAgent, AgentState # Import the new agent
 from .agent_logger import agent_logger
 from datetime import date
 # Import tool functions ONLY for direct execution after confirmation
@@ -84,7 +88,7 @@ def agent_command(request):
         try:
             # Instantiate the agent (consider caching or making it a singleton if performance is critical)
             # Pass API key from settings if configured there
-            agent = DjanCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
+            agent = djangoCrudAgent(api_key=getattr(settings, 'GEMINI_API_KEY', None))
 
             # Invoke the agent
             final_state = agent.invoke(command)
@@ -253,9 +257,40 @@ def load_cities(request):
     cities = City.objects.filter(state_id=state_id).values('id','name')
     return JsonResponse(list(cities),safe=False)
 
+query = '''
+SELECT 
+    e.FirstName   AS FirstName,
+    e.LastName    AS LastName,
+    e.PhoneNumber AS `Phone Number`,
+    d.department  AS Department,
+    co.name AS Country
+FROM crudapp_employee e
+INNER JOIN crudapp_department d 
+    ON e.EmpDept_id = d.id
+INNER JOIN crudapp_country co 
+    ON e.Empcountry_id = co.id
 
-from djan.db import transaction
-from djan.shortcuts import render
+'''
+# from django.shortcuts import render
+
+from django.db import connection
+from django.shortcuts import render
+
+def RawSqlDemo(request):
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        employees = cursor.fetchall()
+        print('Employees',employees)
+    return render(request, "crudapp/ShowEmployees.html", {"Employees": employees})
+
+
+
+
+
+
+
+from django.db import transaction
+from django.shortcuts import render
 from datetime import date
 from .models import Employee, Country, Department
 
@@ -434,11 +469,11 @@ def agent_execute(request):
             if agent_action == 'create':
                 # agent_data is the dictionary of fields prepared by LLM
                 agent_logger.info(f"Agent EXECUTE: Creating employee with data: {agent_data}")
-                # Validate data using Pydantic model or Djan Form
+                # Validate data using Pydantic model or django Form
                 try:
                     # Use Pydantic for validation before creating
                     # validated_data = EmployeeData(**agent_data).model_dump(exclude_unset=True) # exclude_unset avoids passing None for non-provided fields
-                    # Or use Djan Form
+                    # Or use django Form
                     form = EmployeeForm(agent_data)
                     if form.is_valid():
                          employee = form.save()
@@ -449,7 +484,7 @@ def agent_execute(request):
                          messages.error(request, error_msg)
                          agent_logger.error(f"Agent EXECUTE: Create validation failed. Data: {agent_data}. Errors: {form.errors.as_json()}")
 
-                except ValidationError as e: # Catch Pydantic or Djan validation errors
+                except ValidationError as e: # Catch Pydantic or django validation errors
                      error_msg = f"Agent failed to create employee due to validation errors: {e}"
                      messages.error(request, error_msg)
                      agent_logger.error(f"Agent EXECUTE: Create validation failed. Data: {agent_data}. Error: {e}")
@@ -526,4 +561,5 @@ def agent_execute(request):
     request.session.pop('agent_data', None)
     request.session.pop('agent_confirm_message', None)
     return redirect('employee_list')
+
 
